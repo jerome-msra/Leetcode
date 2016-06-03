@@ -11,7 +11,7 @@
 #include "DataStructure.h"
 #include "OutputHelper.h"
 
-#include "AlienOrder.h"
+#include "NumberIslandII.h"
 
 using namespace std;
 
@@ -19,11 +19,11 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    vector<string> dict{"a", "b", "a"};
     
-    string result = alienOrder(dict);
+    vector<pair<int,int>> test;
     
-    std::cout << result << std::endl;
+    vector<int> result = numIslands2(3, 3, test);
+    
     
     return 0;
     
