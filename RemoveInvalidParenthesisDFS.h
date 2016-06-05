@@ -9,6 +9,10 @@
 #ifndef RemoveInvalidParenthesisDFS_h
 #define RemoveInvalidParenthesisDFS_h
 
+#include "DataStructure.h"
+
+using namespace std;
+
 /**
  DFS seems very difficult. Key point is :
 • How to guarantee that the minimum number of parenthesis is removed.
