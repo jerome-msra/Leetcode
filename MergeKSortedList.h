@@ -9,6 +9,10 @@
 #ifndef MergeKSortedList_h
 #define MergeKSortedList_h
 
+#include "DataStructure.h"
+
+using namespace std;
+
 // This is a min heap, but must use greater comparison
 struct mycompare {
     bool operator()(ListNode * a, ListNode * b) {

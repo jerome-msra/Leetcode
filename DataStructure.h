@@ -42,6 +42,12 @@ struct ListNode {
     ListNode(int x) : val(x), next(NULL) {}
 };
 
+struct RandomListNode {
+    int label;
+    RandomListNode *next, *random;
+    RandomListNode(int x) : label(x), next(NULL), random(NULL) {}
+};
+
 class TrieNode {
 public:
     bool isWord;
@@ -52,6 +58,8 @@ public:
         isWord = false;
     }
 };
+
+
 
 bool isPalindrome(string s) {
     size_t i = 0;
