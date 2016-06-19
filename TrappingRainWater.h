@@ -13,7 +13,7 @@
 
 using namespace std;
 
-/************** 117. Populating Next Right Pointers in Each Node II *******************/
+/************** 42. Trapping Rain Water *******************/
 
 int trap(vector<int>& height) {
     if(height.size()<3) return 0;
