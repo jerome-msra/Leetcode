@@ -11,7 +11,7 @@
 #include "DataStructure.h"
 #include "OutputHelper.h"
 
-#include "NumberIslandII.h"
+#include "WordBreakII.h"
 
 using namespace std;
 
@@ -19,10 +19,13 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
+    string s = "catsanddog";
     
-    vector<pair<int,int>> test;
+    unordered_set<string> myset{"cat","cats","and","sand","dog"};
     
-    vector<int> result = numIslands2(3, 3, test);
+    vector<string> result = wordBreak(s, myset);
+    
+    output1DVectorHelper(result);
     
     
     return 0;
