@@ -11,7 +11,7 @@
 #include "DataStructure.h"
 #include "OutputHelper.h"
 
-#include "WordBreakII.h"
+#include "MinimumWindowSubstring.h"
 
 using namespace std;
 
@@ -19,14 +19,12 @@ using namespace std;
 
 int main(int argc, const char * argv[]) {
     
-    string s = "catsanddog";
+    string s = "aa", t = "aa";
     
-    unordered_set<string> myset{"cat","cats","and","sand","dog"};
     
-    vector<string> result = wordBreak(s, myset);
+    string x = minWindowSubstr(s, t); 
     
-    output1DVectorHelper(result);
-    
+    std::cout << x << std::endl;
     
     return 0;
     
