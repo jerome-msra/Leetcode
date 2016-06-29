@@ -24,8 +24,8 @@ vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
     
     multiset<int> heights = { 0 };
     vector<pair<int, int>> corners;
-    int x = -1;
-    int y = 0;
+    int x = -1; // previous one - x coordinate
+    int y = 0; // previous one - y coordinate
     for (const pair<int, int> & p : coords) {
         if ((x >= 0) && (p.first != x) && (corners.empty() || (corners.rbegin()->second != y))) {
             corners.emplace_back(x, y);
@@ -48,5 +48,39 @@ vector<pair<int, int>> getSkyline(vector<vector<int>>& buildings) {
     
     return corners;
 }
+
+// for better understand
+
+static bool pairEqual(pair<int,int> p1, pair<int,int> p2) {
+    return p1.second == p2.second;
+}
+
+vector<pair<int, int>> getSkylineII(vector<vector<int>>& buildings) {
+    multimap<int,int> buildMap;
+    for (auto b : buildings) {
+        buildMap.emplace(b[0], b[2]);
+        buildMap.emplace(b[1], -b[2]);
+    }
+    
+    multiset<int> heights{0};
+    map<int,int> corners;
+    for (auto b : buildMap) {
+        if (b.second > 0) {
+            heights.insert(b.second);
+        }
+        else {
+            heights.erase(heights.find(-b.second));
+        }
+        // find the highest point at this position
+        corners[b.first] = *heights.rbegin();
+    }
+    
+    // remove duplicates
+    vector<pair<int, int>> results;
+    unique_copy(corners.begin(), corners.end(), back_insert_iterator<vector<pair<int, int>>>(results), pairEqual);
+    return results;
+}
+
+
 
 #endif /* TheSkylineProblem_h */
