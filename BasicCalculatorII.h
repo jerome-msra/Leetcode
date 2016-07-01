@@ -73,4 +73,37 @@ int calculate(string s) {
     return numstack.top();
 };
 
+
+int calculateWithoutStack(string s) {
+    int result = 0;
+    int number = 0, sign = 1;
+    for (int i = 0; i < s.length(); i++) {
+        char curr = s[i];
+        if (s[i]>='0' && s[i]<='9') number = number * 10 + s[i]-'0';
+        else if (s[i]=='+') {
+            result += sign*number;
+            sign = 1;
+            number = 0;
+        }
+        else if (s[i]=='-') {
+            result += sign*number;
+            sign = -1;
+            number  = 0;
+        }
+        else if (s[i]=='*' || s[i]=='/') {
+            i++;
+            while(i<s.length() && s[i]==' ') i++;
+            int starti = i;
+            while(i<s.length() && s[i]>='0' && s[i]<='9') i++;
+            int next = stoi(s.substr(starti, i-starti));
+            i--;
+            if (curr=='*') number *= next;
+            else if (curr=='/') number /= next;
+        }
+    }
+    
+    if (number!=0) result += sign*number;
+    return result;
+}
+
 #endif /* BasicCalculatorII_h */
