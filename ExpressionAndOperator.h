@@ -13,34 +13,49 @@
 
 using namespace std;
 
+/*
+ What to learn:
+ 
+ the method to process the multiply(*) operator
+ 
+ */
+
+
 /************************** 282. Expression Add Operators *************************/
 
-void addOpHelper(vector<string> & result, string current, string & num, int target, int level, long sum) {
-    if (level == num.length() && sum == target) {
-        result.push_back(current);
-        return;
-    }
-    for (int i = level; i < num.length(); i++) {
-        string front = num.substr(level, i-level+1);
-        long frontnum = atol(front.c_str());
-        if (front.length()>1 && front[0]=='0') continue;
-        addOpHelper(result, current+"+"+front, num, target, i+1, sum+frontnum);
-        addOpHelper(result, current+"-"+front, num, target, i+1, sum-frontnum);
-        addOpHelper(result, current+"*"+front, num, target, i+1, sum*frontnum);
-    }
-}
+void addOpHelper(vector<string> & result, string current, long leftNum, string & num, int level, int target, long multi, int depth);
 
 vector<string> addOperators(string num, int target) {
     vector<string> result;
-    if (num.length() == 0) return result;
-    string current;
-    if (atol(num.c_str()) == target) result.push_back(num);
-    for (int i = 1; i < num.length(); i++) {
-        string front = num.substr(0, i);
-        long currnum = atol(front.c_str());
-        addOpHelper(result, front, num, target, i, currnum);
+    for (int i = 1; i <= num.length(); i++) {
+        string left = num.substr(0, i);
+        if (left.length()>1 && left[0]=='0') continue;
+        long leftNum = stol(left);
+        addOpHelper(result, left, leftNum, num, i, target, 0, 0);
     }
+    
     return result;
+}
+
+void addOpHelper(vector<string> & result, string current, long leftNum, string & num, int level, int target, long multi, int depth) {
+    if (level==num.length() && leftNum==target) {
+        result.push_back(current);
+        return;
+    }
+    
+    for (int i = 1; i <= num.length()-level; i++) {
+        string curr = num.substr(level, i);
+        if (curr.length()>1 && curr[0]=='0') continue;
+        long currNum = stol(curr);
+        addOpHelper(result, current+"+"+curr, leftNum+currNum, num, level+i, target, currNum, depth+1);
+        addOpHelper(result, current+"-"+curr, leftNum-currNum, num, level+i, target, -currNum, depth+1);
+        if (depth==0) {
+            addOpHelper(result, current+"*"+curr, leftNum*currNum, num, level+i, target, leftNum*currNum, depth+1);
+        }
+        else {
+            addOpHelper(result, current+"*"+curr, leftNum-multi + multi*currNum, num, level+i, target, multi*currNum, depth+1);
+        }
+    }
 }
 
 #endif /* ExpressionAndOperator_h */
